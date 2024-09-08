@@ -15,3 +15,8 @@ const logReq2 = function (req, res, next) {
     console.log("Request Received");
     next();
 };
+
+// error hanlder
+app.use((err, req, res, next) => {
+    res.status(400).send(err.message);
+});
