@@ -1,9 +1,14 @@
 const express = require("express");
 const app = express();
 const port = 3000;
-/*so basically have 3 different arrays that 
-holds 3 different stuff, 
-for example users, posts, comments */
+
+
+//const users = require("./data/users");
+//const posts = require("./data/posts");
+const comments= require("./data/commets");
+
+const users = require("./routes/users");
+const posts = require("./routes/posts");
 
 // creating middleware
 const logReq = function (req, res, next) {
@@ -16,7 +21,21 @@ const logReq2 = function (req, res, next) {
     next();
 };
 
-// error hanlder
-app.use((err, req, res, next) => {
-    res.status(400).send(err.message);
+// error handler
+app.use((req, res) => {
+    res.status(404);
+    res.json({ error: "Resource Not Found" });
+});
+
+
+// Use our Routes
+app.use("/api/users", users);
+app.use("/api/posts", posts);
+
+app.get("/", (req, res) => {
+    res.send("Work in progress!");
+});
+
+app.listen(port, () => {
+    console.log(`Server listening on port: ${port}.`);
 });
