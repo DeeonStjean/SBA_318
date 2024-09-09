@@ -1,8 +1,12 @@
 const express = require("express");
 const router = express.Router();
 
+const bodyParser = require("body-parser");
 const users = require("../data/users");
-//const error = require("../utilities/error");
+
+// Parsing Middleware
+router.use(bodyParser.urlencoded({ extended: true }));
+router.use(bodyParser.json({ extended: true }));
 
 router
     .route("/")
