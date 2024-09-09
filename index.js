@@ -49,12 +49,13 @@ const logReq = function (req, res, next) {
     console.log("Request Received");
     next();
 };
+app.use(logReq);
 
 const logReq2 = function (req, res, next) {
-    console.log("Request Received");
+    console.log("Request Received2");
     next();
 };
-
+app.use(logReq2);
 
 app.get("/", (req, res) => {
     res.send("Work in progress!");
@@ -71,6 +72,10 @@ app.use((req, res) => {
     res.status(404);
     res.json({ error: "Resource Not Found" });
 });
+app.use((err, req, res, next) => {
+    res.status(err.status || 500);
+    res.json({ error: err.message });
+  });
 
 app.listen(port, () => {
     console.log(`Server listening on port: ${port}.`);
