@@ -8,13 +8,33 @@ router
   .get((req, res) => {
     const links = [
       {
-        href: "posts/:id",
+        href: "comments/:id",
         rel: ":id",
         type: "GET",
       },
     ];
 
     res.json({ comments, links });
+});
+router
+  .route("/:id")
+  .get((req, res, next) => {
+    const comment = comments.find((u) => u.id == req.params.id);
+    const links = [
+        {
+          href: `/${req.params.id}`,
+          rel: "",
+          type: "PATCH",
+        },
+        {
+          href: `/${req.params.id}`,
+          rel: "",
+          type: "DELETE",
+        },
+      ];
+  
+      if (comment) res.json({ comment, links });
+      else next();
 });
 
 module.exports = router;
