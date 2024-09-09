@@ -1,14 +1,15 @@
 const express = require("express");
-const app = express();
-const port = 3000;
-
 
 //const users = require("./data/users");
 //const posts = require("./data/posts");
-const comments= require("./data/commets");
+//const comments= require("./data/commets");
 
 const users = require("./routes/users");
 const posts = require("./routes/posts");
+const comments = require("./routes/comments");
+
+const app = express();
+const port = 3000;
 
 // creating middleware
 const logReq = function (req, res, next) {
@@ -21,19 +22,21 @@ const logReq2 = function (req, res, next) {
     next();
 };
 
+
+app.get("/", (req, res) => {
+    res.send("Work in progress!");
+});
+
+// Use our Routes
+app.use("/users", users);
+app.use("/posts", posts);
+app.use("/comments",comments);
+
+
 // error handler
 app.use((req, res) => {
     res.status(404);
     res.json({ error: "Resource Not Found" });
-});
-
-
-// Use our Routes
-app.use("/api/users", users);
-app.use("/api/posts", posts);
-
-app.get("/", (req, res) => {
-    res.send("Work in progress!");
 });
 
 app.listen(port, () => {

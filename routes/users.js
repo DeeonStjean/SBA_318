@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const users = require("../data/users");
-const error = require("../utilities/error");
+//const error = require("../utilities/error");
 
 router
     .route("/")

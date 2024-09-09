@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const posts = require("../data/posts");
+const comments = require("../data/commets");
 
 router
   .route("/")
@@ -14,7 +14,7 @@ router
       },
     ];
 
-    res.json({ posts, links });
+    res.json({ comments, links });
 });
 
 module.exports = router;
